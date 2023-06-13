@@ -1,0 +1,99 @@
+package com.example.backend.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.backend.dto.HotelResponse;
+import com.example.backend.dto.NotesDTO;
+import com.example.backend.dto.NotesResponse;
+import com.example.backend.entity.Hotel;
+import com.example.backend.entity.Notes;
+import com.example.backend.entity.User;
+import com.example.backend.mapper.NotesMapper;
+import com.example.backend.mapper.UserMapper;
+import com.example.backend.service.NotesService;
+import com.example.backend.service.UserService;
+import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class NotesServiceImpl extends ServiceImpl<NotesMapper, Notes> implements NotesService{
+    @Resource
+    private NotesMapper notesMapper;
+
+    @Override
+    public NotesResponse All(Integer page) {
+        NotesResponse response = new NotesResponse();
+        List<Notes> notesList=notesMapper.selectList(new QueryWrapper<Notes>()
+                .last("LIMIT "+0+","+page));
+        response.setNotesList(notesList);
+        response.setMessage("获取成功");
+        return response;
+    }
+
+    @Override
+    public NotesResponse Ma_All() {
+        NotesResponse response=new NotesResponse();
+        List<Notes> notesList =notesMapper.selectList(null);
+        response.setNotesList(notesList);
+        response.setMessage("获取成功");
+        return response;
+    }
+
+    @Override
+    public NotesResponse Search(String title) {
+        NotesResponse response=new NotesResponse();
+        List<Notes> notesList =notesMapper.selectList(new QueryWrapper<Notes>()
+                .lambda().like(Notes::getTitle,title));
+        response.setNotesList(notesList);
+        response.setMessage("获取成功");
+        return response;
+    }
+
+    @Override
+    public NotesResponse Delete(Integer id) {
+        NotesResponse response=new NotesResponse();
+        QueryWrapper<Notes> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().like(Notes::getId,id);
+        int result=notesMapper.delete(queryWrapper);
+        if(result>0){
+            response.setMessage("游记删除成功");
+        }else{
+            response.setMessage("游记删除错误");
+        }
+        return response;
+    }
+
+    @Override
+    public NotesResponse Update(NotesDTO notesDTO) {
+        NotesResponse response=new NotesResponse();
+        Notes notes=new Notes();
+        BeanUtils.copyProperties(notesDTO,notes);
+        notesMapper.updateById(notes);
+        response.setMessage("游记修改成功");
+        return response;
+    }
+
+    @Override
+    public NotesResponse Add(NotesDTO notesDTO) {
+        NotesResponse response=new NotesResponse();
+        Notes notes=new Notes();
+        BeanUtils.copyProperties(notesDTO,notes);
+        save(notes);
+        response.setMessage("游记添加成功");
+        return response;
+    }
+
+    @Override
+    public NotesResponse Details(Integer id) {
+        NotesResponse response=new NotesResponse();
+        QueryWrapper<Notes> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Notes::getId,id);
+        List<Notes> notesList=notesMapper.selectList(queryWrapper);
+        response.setNotesList(notesList);
+        response.setMessage("游记添加成功");
+        return response;
+    }
+}
