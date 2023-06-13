@@ -11,7 +11,9 @@ import com.example.backend.entity.Food;
 import com.example.backend.mapper.AttractionsMapper;
 import com.example.backend.mapper.FoodMapper;
 import com.example.backend.service.FoodService;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,16 +69,32 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
 
     @Override
     public FoodResponse Update(FoodDTO foodDTO) {
-        return null;
+        FoodResponse response = new FoodResponse();
+        Food food=new Food();
+        BeanUtils.copyProperties(foodDTO,food);
+        foodMapper.updateById(food);
+        response.setMessage("食物修改成功");
+        return response;
     }
 
     @Override
     public FoodResponse Add(FoodDTO foodDTO) {
-        return null;
+        FoodResponse response = new FoodResponse();
+        Food food=new Food();
+        BeanUtils.copyProperties(foodDTO,food);
+        save(food);
+        response.setMessage("食物添加成功");
+        return response;
     }
 
     @Override
     public FoodResponse Details(Integer id) {
-        return null;
+        FoodResponse response = new FoodResponse();
+        QueryWrapper<Food> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Food::getId,id);
+        List<Food> foodList=foodMapper.selectList(queryWrapper);
+        response.setFoodList(foodList);
+        response.setMessage("食物查询成功");
+        return response;
     }
 }

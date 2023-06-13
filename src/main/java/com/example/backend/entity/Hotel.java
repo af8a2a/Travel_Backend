@@ -14,5 +14,5 @@ public class Hotel {
     private String image;
     private String name;
     private String assess;
-    private Double score;
+    private String score;
 }
