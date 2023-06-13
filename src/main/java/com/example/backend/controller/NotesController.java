@@ -9,38 +9,39 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/notes")
+@CrossOrigin
 public class NotesController {
 
     @Resource
     private NotesService notesService;
     @PostMapping("/details")
     @ResponseBody
-    public NotesResponse Details(@RequestParam("id")Integer id){
-        return notesService.Details(id);
+    public NotesResponse Details(@RequestBody NotesDTO notesDTO){
+        return notesService.Details(notesDTO);
     }
 
     @PostMapping("/search")
     @ResponseBody
-    public NotesResponse Search(@RequestParam("name")String name){
-        return notesService.Search(name);
+    public NotesResponse Search(@RequestBody NotesDTO notesDTO){
+        return notesService.Search(notesDTO);
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public NotesResponse Delete(@RequestParam("id") Integer id){
-        return notesService.Delete(id);
+    public NotesResponse Delete(@RequestBody NotesDTO notesDTO){
+        return notesService.Delete(notesDTO);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public NotesResponse Add(NotesDTO notesDTO){
+    public NotesResponse Add(@RequestBody NotesDTO notesDTO){
         return notesService.Add(notesDTO);
     }
 
     @PostMapping("/all")
     @ResponseBody
-    public NotesResponse All(@RequestParam("page")Integer page){
-        return notesService.All(page);
+    public NotesResponse All(@RequestBody NotesDTO notesDTO){
+        return notesService.All(notesDTO);
     }
 
     @GetMapping("/ma_all")
@@ -51,7 +52,7 @@ public class NotesController {
 
     @PostMapping("/update")
     @ResponseBody
-    public NotesResponse Update(NotesDTO notesDTO){
+    public NotesResponse Update(@RequestBody NotesDTO notesDTO){
         return notesService.Update(notesDTO);
     }
 

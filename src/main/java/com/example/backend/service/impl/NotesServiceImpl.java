@@ -24,11 +24,11 @@ public class NotesServiceImpl extends ServiceImpl<NotesMapper, Notes> implements
     private NotesMapper notesMapper;
 
     @Override
-    public NotesResponse All(Integer page) {
+    public NotesResponse All(NotesDTO notesDTO) {
         NotesResponse response = new NotesResponse();
         List<Notes> notesList=notesMapper.selectList(new QueryWrapper<Notes>()
-                .last("LIMIT "+0+","+page));
-        response.setNotesList(notesList);
+                .last("LIMIT "+0+","+notesDTO.getPage()));
+        response.setData(notesList);
         response.setMessage("获取成功");
         return response;
     }
@@ -37,26 +37,26 @@ public class NotesServiceImpl extends ServiceImpl<NotesMapper, Notes> implements
     public NotesResponse Ma_All() {
         NotesResponse response=new NotesResponse();
         List<Notes> notesList =notesMapper.selectList(null);
-        response.setNotesList(notesList);
+        response.setData(notesList);
         response.setMessage("获取成功");
         return response;
     }
 
     @Override
-    public NotesResponse Search(String title) {
+    public NotesResponse Search(NotesDTO notesDTO) {
         NotesResponse response=new NotesResponse();
         List<Notes> notesList =notesMapper.selectList(new QueryWrapper<Notes>()
-                .lambda().like(Notes::getTitle,title));
-        response.setNotesList(notesList);
+                .lambda().like(Notes::getTitle,notesDTO.getTitle()));
+        response.setData(notesList);
         response.setMessage("获取成功");
         return response;
     }
 
     @Override
-    public NotesResponse Delete(Integer id) {
+    public NotesResponse Delete(NotesDTO notesDTO) {
         NotesResponse response=new NotesResponse();
         QueryWrapper<Notes> queryWrapper =new QueryWrapper<>();
-        queryWrapper.lambda().like(Notes::getId,id);
+        queryWrapper.lambda().like(Notes::getId,notesDTO.getId());
         int result=notesMapper.delete(queryWrapper);
         if(result>0){
             response.setMessage("游记删除成功");
@@ -87,12 +87,12 @@ public class NotesServiceImpl extends ServiceImpl<NotesMapper, Notes> implements
     }
 
     @Override
-    public NotesResponse Details(Integer id) {
+    public NotesResponse Details(NotesDTO notesDTO) {
         NotesResponse response=new NotesResponse();
         QueryWrapper<Notes> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(Notes::getId,id);
+        queryWrapper.lambda().eq(Notes::getId,notesDTO.getId());
         List<Notes> notesList=notesMapper.selectList(queryWrapper);
-        response.setNotesList(notesList);
+        response.setData(notesList);
         response.setMessage("游记添加成功");
         return response;
     }

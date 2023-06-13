@@ -14,4 +14,5 @@ public class AttractionsDTO {
     private String information;
     private String price;
     private String amount;
+    private Integer page;
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/attractions")
 public class AttractionsController {
     @Resource
@@ -21,43 +22,43 @@ public class AttractionsController {
 
     @PostMapping("/details")
     @ResponseBody
-    public AttractionsResponse Details(@RequestParam("id")Integer id){
-        return attractionsService.Details(id);
+    public AttractionsResponse Details(@RequestBody AttractionsDTO attractionsDTO){
+        return attractionsService.Details(attractionsDTO);
     }
 
     @PostMapping("/search")
     @ResponseBody
-    public AttractionsResponse Search(@RequestParam("title")String title,@RequestParam("page")Integer page){
-        return attractionsService.Search(title,page);
+    public AttractionsResponse Search(@RequestBody AttractionsDTO attractionsDTO){
+        return attractionsService.Search(attractionsDTO);
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public AttractionsResponse Delete(@RequestParam("id") Integer id){
-        return attractionsService.Delete(id);
+    public AttractionsResponse Delete(@RequestBody AttractionsDTO attractionsDTO){
+        return attractionsService.Delete(attractionsDTO);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public AttractionsResponse Add(AttractionsDTO attractionsDTO){
+    public AttractionsResponse Add(@RequestBody AttractionsDTO attractionsDTO){
         return attractionsService.Add(attractionsDTO);
     }
 
     @PostMapping("/all")
     @ResponseBody
-    public AttractionsResponse All(@RequestParam("page")Integer page){
-        return attractionsService.All(page);
+    public AttractionsResponse All(@RequestBody AttractionsDTO attractionsDTO){
+        return attractionsService.All(attractionsDTO);
     }
 
     @GetMapping("/ma_all")
     @ResponseBody
-    public AttractionsResponse All(){
+    public AttractionsResponse Ma_All(){
         return attractionsService.Ma_All();
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public AttractionsResponse Update(AttractionsDTO attractionsDTO){
+    public AttractionsResponse Update(@RequestBody AttractionsDTO attractionsDTO){
         return attractionsService.Update(attractionsDTO);
     }
 }

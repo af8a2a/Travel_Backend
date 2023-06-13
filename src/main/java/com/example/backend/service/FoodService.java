@@ -8,11 +8,11 @@ import com.example.backend.dto.FoodResponse;
 import com.example.backend.entity.Food;
 
 public interface FoodService extends IService<Food> {
-    FoodResponse All(Integer page);
+    FoodResponse All(FoodDTO foodDTO);
     FoodResponse Ma_All();
-    FoodResponse Search(String name);
-    FoodResponse Delete(Integer id);
+    FoodResponse Search(FoodDTO foodDTO);
+    FoodResponse Delete(FoodDTO foodDTO);
     FoodResponse Update(FoodDTO foodDTO);
     FoodResponse Add(FoodDTO foodDTO);
-    FoodResponse Details(Integer id);
+    FoodResponse Details(FoodDTO foodDTO);
 }

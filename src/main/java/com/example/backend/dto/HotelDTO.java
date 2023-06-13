@@ -10,4 +10,5 @@ public class HotelDTO {
     private String name;
     private String assess;
     private String score;
+    private Integer page;
 }

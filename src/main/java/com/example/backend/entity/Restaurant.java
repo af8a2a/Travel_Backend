@@ -13,8 +13,8 @@ public class Restaurant {
     private String name;
     private String link;
     private String image;
-    private Double address;
+    private String address;
     private String price;
-    private Double score;
-    private Integer comment;
+    private String score;
+    private String comment;
 }

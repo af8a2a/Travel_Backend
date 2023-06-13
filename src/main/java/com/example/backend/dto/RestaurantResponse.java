@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class RestaurantResponse {
     private String message;
-    private List<Restaurant> restaurants;
+    private List<Restaurant> data;
 }

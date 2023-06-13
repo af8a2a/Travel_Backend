@@ -6,12 +6,12 @@ import com.example.backend.dto.HotelResponse;
 import com.example.backend.entity.Hotel;
 
 public interface HotelService extends IService<Hotel> {
-    HotelResponse All(Integer page);
+    HotelResponse All(HotelDTO hotelDTO);
     HotelResponse Ma_All();
-    HotelResponse Search(String name);
-    HotelResponse Delete(Integer id);
+    HotelResponse Search(HotelDTO hotelDTO);
+    HotelResponse Delete(HotelDTO hotelDTO);
     HotelResponse Update(HotelDTO hotelDTO);
     HotelResponse Add(HotelDTO hotelDTO);
-    HotelResponse Details(Integer id);
+    HotelResponse Details(HotelDTO hotelDTO);
 
 }

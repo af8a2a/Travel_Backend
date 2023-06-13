@@ -9,6 +9,7 @@ import com.example.backend.entity.Attractions;
 import com.example.backend.mapper.AttractionsMapper;
 import com.example.backend.service.AttractionsService;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -17,11 +18,11 @@ public class AttractionsServiceImpl extends ServiceImpl<AttractionsMapper, Attra
     @Resource
     private AttractionsMapper attractionsMapper;
     @Override
-    public AttractionsResponse All(Integer page) {
+    public AttractionsResponse All(AttractionsDTO attractionsDTO) {
         AttractionsResponse response=new AttractionsResponse();
         List<Attractions> attractionsList=attractionsMapper.selectList(new QueryWrapper<Attractions>()
-                .last("LIMIT "+0+","+page));
-        response.setAttractionsList(attractionsList);
+                .last("LIMIT "+0+","+attractionsDTO.getPage()));
+        response.setData(attractionsList);
         response.setMessage("获取成功");
         return response;
     }
@@ -30,28 +31,28 @@ public class AttractionsServiceImpl extends ServiceImpl<AttractionsMapper, Attra
     public AttractionsResponse Ma_All() {
         AttractionsResponse response=new AttractionsResponse();
         List<Attractions> attractionsList=attractionsMapper.selectList(null);
-        response.setAttractionsList(attractionsList);
+        response.setData(attractionsList);
         response.setMessage("获取成功");
         return response;
 
     }
 
     @Override
-    public AttractionsResponse Search(String title,Integer page) {
+    public AttractionsResponse Search(AttractionsDTO attractionsDTO) {
         AttractionsResponse response=new AttractionsResponse();
         QueryWrapper<Attractions> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(Attractions::getTitle, title).last("LIMIT "+0+","+page);
+        queryWrapper.lambda().like(Attractions::getTitle, attractionsDTO.getTitle()).last("LIMIT "+0+","+attractionsDTO.getPage());
         List<Attractions> attractionsList=attractionsMapper.selectList(queryWrapper);
-        response.setAttractionsList(attractionsList);
+        response.setData(attractionsList);
         response.setMessage("搜索成功");
         return response;
     }
 
     @Override
-    public AttractionsResponse Delete(Integer id) {
+    public AttractionsResponse Delete(AttractionsDTO attractionsDTO) {
         AttractionsResponse response=new AttractionsResponse();
         QueryWrapper<Attractions> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
+        wrapper.eq("id", attractionsDTO.getId());
         int result = attractionsMapper.delete(wrapper);
         if(result>0){
             response.setMessage("景点删除成功");
@@ -65,27 +66,19 @@ public class AttractionsServiceImpl extends ServiceImpl<AttractionsMapper, Attra
     public AttractionsResponse Add(AttractionsDTO attractionsDTO) {
         AttractionsResponse response = new AttractionsResponse();
         Attractions attractions=new Attractions();
-        attractions.setAddress(attractionsDTO.getAddress());
-        attractions.setAmount(attractionsDTO.getAmount());
-        attractions.setArea(attractionsDTO.getArea());
-        attractions.setImage(attractionsDTO.getImage());
-        attractions.setTitle(attractionsDTO.getTitle());
-        attractions.setInformation(attractionsDTO.getInformation());
-        attractions.setLevel(attractionsDTO.getLevel());
-        attractions.setPrice(attractionsDTO.getPrice());
-        attractions.setProduct(attractionsDTO.getProduct());
+        BeanUtils.copyProperties(attractionsDTO,attractions);
         save(attractions);
         response.setMessage("景点添加成功");
         return response;
     }
 
     @Override
-    public AttractionsResponse Details(Integer id) {
+    public AttractionsResponse Details(AttractionsDTO attractionsDTO) {
         AttractionsResponse response=new AttractionsResponse();
         QueryWrapper<Attractions> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(Attractions::getId, id);
+        queryWrapper.lambda().eq(Attractions::getId, attractionsDTO.getId());
         List<Attractions> attractionsList=attractionsMapper.selectList(queryWrapper);
-        response.setAttractionsList(attractionsList);
+        response.setData(attractionsList);
         response.setMessage("搜索成功");
         return response;
 

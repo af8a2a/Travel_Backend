@@ -24,11 +24,11 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
     private FoodMapper foodMapper;
 
     @Override
-    public FoodResponse All(Integer page) {
+    public FoodResponse All(FoodDTO foodDTO) {
         FoodResponse response=new FoodResponse();
         List<Food> foodList=foodMapper.selectList(new QueryWrapper<Food>()
-                .last("LIMIT "+0+","+page));
-        response.setFoodList(foodList);
+                .last("LIMIT "+0+","+foodDTO.getPage()));
+        response.setData(foodList);
         response.setMessage("获取成功");
         return response;
     }
@@ -37,27 +37,27 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
     public FoodResponse Ma_All() {
         FoodResponse response=new FoodResponse();
         List<Food> attractionsList=foodMapper.selectList(null);
-        response.setFoodList(attractionsList);
+        response.setData(attractionsList);
         response.setMessage("获取成功");
         return response;
     }
 
     @Override
-    public FoodResponse Search(String name) {
+    public FoodResponse Search(FoodDTO foodDTO) {
         FoodResponse response=new FoodResponse();
         QueryWrapper<Food> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(Food::getName, name);
+        queryWrapper.lambda().like(Food::getName, foodDTO.getName());
         List<Food> foodList=foodMapper.selectList(queryWrapper);
-        response.setFoodList(foodList);
+        response.setData(foodList);
         response.setMessage("搜索成功");
         return response;
     }
 
     @Override
-    public FoodResponse Delete(Integer id) {
+    public FoodResponse Delete(FoodDTO foodDTO) {
         FoodResponse response=new FoodResponse();
         QueryWrapper<Food> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(Food::getId, id);
+        queryWrapper.lambda().like(Food::getId, foodDTO.getId());
         int result=foodMapper.delete(queryWrapper);
         if(result>0){
             response.setMessage("食物删除成功");
@@ -88,12 +88,12 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
     }
 
     @Override
-    public FoodResponse Details(Integer id) {
+    public FoodResponse Details(FoodDTO foodDTO) {
         FoodResponse response = new FoodResponse();
         QueryWrapper<Food> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(Food::getId,id);
+        queryWrapper.lambda().eq(Food::getId,foodDTO.getId());
         List<Food> foodList=foodMapper.selectList(queryWrapper);
-        response.setFoodList(foodList);
+        response.setData(foodList);
         response.setMessage("食物查询成功");
         return response;
     }

@@ -11,4 +11,5 @@ public class FoodDTO {
     private String number;
     private String area;
     private String address;
+    private Integer page;
 }

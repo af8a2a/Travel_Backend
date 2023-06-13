@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/food")
 public class FoodController {
     @Resource
@@ -18,32 +19,32 @@ public class FoodController {
 
     @PostMapping("/details")
     @ResponseBody
-    public FoodResponse Details(@RequestParam("id")Integer id){
-        return foodService.Details(id);
+    public FoodResponse Details(@RequestBody FoodDTO foodDTO){
+        return foodService.Details(foodDTO);
     }
 
     @PostMapping("/search")
     @ResponseBody
-    public FoodResponse Search(@RequestParam("name")String name){
-        return foodService.Search(name);
+    public FoodResponse Search(@RequestBody FoodDTO foodDTO){
+        return foodService.Search(foodDTO);
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public FoodResponse Delete(@RequestParam("id") Integer id){
-        return foodService.Delete(id);
+    public FoodResponse Delete(@RequestBody FoodDTO foodDTO){
+        return foodService.Delete(foodDTO);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public FoodResponse Add(FoodDTO foodDTO){
+    public FoodResponse Add(@RequestBody FoodDTO foodDTO){
         return foodService.Add(foodDTO);
     }
 
     @PostMapping("/all")
     @ResponseBody
-    public FoodResponse All(@RequestParam("page")Integer page){
-        return foodService.All(page);
+    public FoodResponse All(@RequestBody FoodDTO foodDTO){
+        return foodService.All(foodDTO);
     }
 
     @GetMapping("/ma_all")
@@ -54,7 +55,7 @@ public class FoodController {
 
     @PostMapping("/update")
     @ResponseBody
-    public FoodResponse Update(FoodDTO foodDTO){
+    public FoodResponse Update(@RequestBody FoodDTO foodDTO){
         return foodService.Update(foodDTO);
     }
 

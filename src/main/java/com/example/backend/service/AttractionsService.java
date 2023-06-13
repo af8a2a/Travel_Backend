@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface AttractionsService extends IService<Attractions> {
-    AttractionsResponse All(Integer page);
+    AttractionsResponse All(AttractionsDTO attractionsDTO);
     AttractionsResponse Ma_All();
-    AttractionsResponse Search(String title,Integer page);
-    AttractionsResponse Delete(Integer id);
+    AttractionsResponse Search(AttractionsDTO attractionsDTO);
+    AttractionsResponse Delete(AttractionsDTO attractionsDTO);
     AttractionsResponse Update(AttractionsDTO attractionsDTO);
     AttractionsResponse Add(AttractionsDTO attractionsDTO);
-    AttractionsResponse Details(Integer id);
+    AttractionsResponse Details(AttractionsDTO attractionsDTO);
 }

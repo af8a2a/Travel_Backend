@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class HotelResponse {
     private String message;
-    List<Hotel> hotelList;
+    List<Hotel> data;
 }

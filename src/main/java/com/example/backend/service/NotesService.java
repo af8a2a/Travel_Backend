@@ -8,12 +8,12 @@ import com.example.backend.dto.NotesResponse;
 import com.example.backend.entity.Notes;
 
 public interface NotesService extends IService<Notes> {
-    NotesResponse All(Integer page);
+    NotesResponse All(NotesDTO notesDTO);
     NotesResponse Ma_All();
-    NotesResponse Search(String name);
-    NotesResponse Delete(Integer id);
+    NotesResponse Search(NotesDTO notesDTO);
+    NotesResponse Delete(NotesDTO notesDTO);
     NotesResponse Update(NotesDTO notesDTO);
     NotesResponse Add(NotesDTO notesDTO);
-    NotesResponse Details(Integer id);
+    NotesResponse Details(NotesDTO notesDTO);
 
 }

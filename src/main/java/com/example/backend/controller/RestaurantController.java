@@ -11,37 +11,38 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/restaurant")
+@CrossOrigin
 public class RestaurantController {
     @Resource
     private RestaurantService restaurantService;
     @PostMapping("/details")
     @ResponseBody
-    public RestaurantResponse Details(@RequestParam("id")Integer id){
-        return restaurantService.Details(id);
+    public RestaurantResponse Details(@RequestBody RestaurantDTO restaurantDTO){
+        return restaurantService.Details(restaurantDTO);
     }
 
     @PostMapping("/search")
     @ResponseBody
-    public RestaurantResponse Search(@RequestParam("name")String name,@RequestParam("page")Integer page){
-        return restaurantService.Search(name,page);
+    public RestaurantResponse Search(@RequestBody RestaurantDTO restaurantDTO){
+        return restaurantService.Search(restaurantDTO);
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public RestaurantResponse Delete(@RequestParam("id") Integer id){
-        return restaurantService.Delete(id);
+    public RestaurantResponse Delete(@RequestBody RestaurantDTO restaurantDTO){
+        return restaurantService.Delete(restaurantDTO);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public RestaurantResponse Add(RestaurantDTO restaurantDTO){
+    public RestaurantResponse Add(@RequestBody RestaurantDTO restaurantDTO){
         return restaurantService.Add(restaurantDTO);
     }
 
     @PostMapping("/all")
     @ResponseBody
-    public RestaurantResponse All(@RequestParam("page")Integer page){
-        return restaurantService.All(page);
+    public RestaurantResponse All(@RequestBody RestaurantDTO restaurantDTO){
+        return restaurantService.All(restaurantDTO);
     }
 
     @GetMapping("/ma_all")
@@ -52,7 +53,7 @@ public class RestaurantController {
 
     @PostMapping("/update")
     @ResponseBody
-    public RestaurantResponse Update(RestaurantDTO restaurantDTO){
+    public RestaurantResponse Update(@RequestBody RestaurantDTO restaurantDTO){
         return restaurantService.Update(restaurantDTO);
     }
 

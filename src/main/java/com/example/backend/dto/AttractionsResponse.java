@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class AttractionsResponse {
     private String message;
-    List<Attractions> attractionsList;
+    List<Attractions> data;
 }

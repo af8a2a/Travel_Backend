@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 public class NotesResponse {
     private String message;
-    List<Notes> notesList;
+    List<Notes> data;
 }

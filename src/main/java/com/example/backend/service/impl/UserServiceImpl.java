@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
+
 @Transactional
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -26,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
     @Override
     public Response Update(UserDTO userDTO) {
-        Response response=new Response<>();
+        Response response=new Response();
         UpdateWrapper<User> updateWrapper=new UpdateWrapper<>();
         if(!userDTO.getAvatar().isEmpty()){
             updateWrapper.lambda().eq(User::getUsername,userDTO.getUsername())
@@ -51,7 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
     @Override
     public Response Register(LoginDTO loginDTO) {
-        Response<User> userResponse=new Response<>();
+        Response userResponse=new Response();
         User user=new User();
         user.setPassword(loginDTO.getPassword());
         user.setUsername(loginDTO.getUsername());
@@ -72,18 +74,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Response Login(LoginDTO loginDTO) {
-        Response<User> response=new Response();
+        Response response=new Response();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(User::getUsername, loginDTO.getUsername());
 
-        User user=userMapper.selectOne(queryWrapper);
-        if(user==null){
+        List<User> userList=userMapper.selectList(queryWrapper);
+        System.out.println(loginDTO.getUsername());
+        System.out.println(loginDTO.getPassword());
+        User user=userList.get(0);
+        if(userList.isEmpty()){
             response.setMessage("登录失败,账号或密码错误");
             return response;
         }
         if(user.getUsername().equals(loginDTO.getUsername())&&user.getPassword().equals(loginDTO.getPassword())){
-            response.setData(user);
+            response.setData(userList);
             response.setMessage("登录成功");
             return response;
         }else{

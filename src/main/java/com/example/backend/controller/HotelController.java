@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/hotel")
 public class HotelController {
     @Resource
@@ -18,32 +19,32 @@ public class HotelController {
 
     @PostMapping("/details")
     @ResponseBody
-    public HotelResponse Details(@RequestParam("id")Integer id){
-        return hotelService.Details(id);
+    public HotelResponse Details(@RequestBody HotelDTO hotelDTO){
+        return hotelService.Details(hotelDTO);
     }
 
     @PostMapping("/search")
     @ResponseBody
-    public HotelResponse Search(@RequestParam("name")String name){
-        return hotelService.Search(name);
+    public HotelResponse Search(@RequestBody HotelDTO hotelDTO){
+        return hotelService.Search(hotelDTO);
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public HotelResponse Delete(@RequestParam("id") Integer id){
-        return hotelService.Delete(id);
+    public HotelResponse Delete(@RequestBody HotelDTO hotelDTO){
+        return hotelService.Delete(hotelDTO);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public HotelResponse Add(HotelDTO hotelDTO){
+    public HotelResponse Add(@RequestBody HotelDTO hotelDTO){
         return hotelService.Add(hotelDTO);
     }
 
     @PostMapping("/all")
     @ResponseBody
-    public HotelResponse All(@RequestParam("page")Integer page){
-        return hotelService.All(page);
+    public HotelResponse All(@RequestBody HotelDTO hotelDTO){
+        return hotelService.All(hotelDTO);
     }
 
     @GetMapping("/ma_all")
@@ -54,7 +55,7 @@ public class HotelController {
 
     @PostMapping("/update")
     @ResponseBody
-    public HotelResponse Update(HotelDTO hotelDTO){
+    public HotelResponse Update(@RequestBody HotelDTO hotelDTO){
         return hotelService.Update(hotelDTO);
     }
 

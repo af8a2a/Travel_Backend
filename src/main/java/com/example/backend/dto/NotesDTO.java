@@ -14,10 +14,11 @@ public class NotesDTO {
     private String quantity;
     private String look;
     private String like;
-    private Double comment;
+    private String comment;
     private String address;
     private String imageo;
     private String imaget;
     private String images;
     private String imagef;
+    private Integer page;
 }

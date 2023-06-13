@@ -23,11 +23,11 @@ public class HotelServiceImpl extends ServiceImpl<HotelMapper, Hotel> implements
     private HotelMapper hotelMapper;
 
     @Override
-    public HotelResponse All(Integer page) {
+    public HotelResponse All(HotelDTO hotelDTO) {
         HotelResponse response=new HotelResponse();
         List<Hotel> hotelList=hotelMapper.selectList(new QueryWrapper<Hotel>()
-                .last("LIMIT "+0+","+page));
-        response.setHotelList(hotelList);
+                .last("LIMIT "+0+","+hotelDTO.getPage()));
+        response.setData(hotelList);
         response.setMessage("获取成功");
         return response;
 
@@ -37,26 +37,26 @@ public class HotelServiceImpl extends ServiceImpl<HotelMapper, Hotel> implements
     public HotelResponse Ma_All() {
         HotelResponse response=new HotelResponse();
         List<Hotel> hotelList=hotelMapper.selectList(null);
-        response.setHotelList(hotelList);
+        response.setData(hotelList);
         response.setMessage("获取成功");
         return response;
     }
 
     @Override
-    public HotelResponse Search(String name) {
+    public HotelResponse Search(HotelDTO hotelDTO) {
         HotelResponse response=new HotelResponse();
         List<Hotel> hotelList=hotelMapper.selectList(new QueryWrapper<Hotel>()
-                .lambda().like(Hotel::getName,name));
-        response.setHotelList(hotelList);
+                .lambda().like(Hotel::getName,hotelDTO.getId()));
+        response.setData(hotelList);
         response.setMessage("搜索成功");
         return response;
     }
 
     @Override
-    public HotelResponse Delete(Integer id) {
+    public HotelResponse Delete(HotelDTO hotelDTO) {
         HotelResponse response=new HotelResponse();
         QueryWrapper<Hotel> queryWrapper =new QueryWrapper<Hotel>();
-        queryWrapper.lambda().like(Hotel::getId,id);
+        queryWrapper.lambda().like(Hotel::getId,hotelDTO.getId());
         int result=hotelMapper.delete(queryWrapper);
         if(result>0){
             response.setMessage("酒店删除成功");
@@ -88,12 +88,12 @@ public class HotelServiceImpl extends ServiceImpl<HotelMapper, Hotel> implements
     }
 
     @Override
-    public HotelResponse Details(Integer id) {
+    public HotelResponse Details(HotelDTO hotelDTO) {
         HotelResponse response = new HotelResponse();
         QueryWrapper<Hotel> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(Hotel::getId,id);
+        queryWrapper.lambda().eq(Hotel::getId,hotelDTO.getId());
         List<Hotel> hotelList=hotelMapper.selectList(queryWrapper);
-        response.setHotelList(hotelList);
+        response.setData(hotelList);
         response.setMessage("酒店查询成功");
         return response;
     }
