@@ -1,17 +1,14 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.HotelDTO;
-import com.example.backend.dto.HotelResponse;
 import com.example.backend.dto.NotesDTO;
 import com.example.backend.dto.NotesResponse;
-import com.example.backend.service.HotelService;
 import com.example.backend.service.NotesService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/hotel")
+@RequestMapping("/notes")
 public class NotesController {
 
     @Resource
