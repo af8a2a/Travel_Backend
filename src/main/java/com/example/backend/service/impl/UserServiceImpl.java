@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.dto.LoginDTO;
+import com.example.backend.dto.LoginResponse;
 import com.example.backend.dto.Response;
 import com.example.backend.dto.UserDTO;
 import com.example.backend.entity.User;
 import com.example.backend.mapper.UserMapper;
 import com.example.backend.service.UserService;
 import jakarta.annotation.Resource;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,12 +85,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         System.out.println(loginDTO.getUsername());
         System.out.println(loginDTO.getPassword());
         User user=userList.get(0);
+
         if(userList.isEmpty()){
             response.setMessage("登录失败,账号或密码错误");
             return response;
         }
         if(user.getUsername().equals(loginDTO.getUsername())&&user.getPassword().equals(loginDTO.getPassword())){
-            response.setData(userList);
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setUsername(user.getUsername());
+            loginResponse.setAvatar(user.getAvatar());
+            loginResponse.setType(user.getType());
+            loginResponse.setNickname(user.getNickname());
+            response.setData(loginResponse);
             response.setMessage("登录成功");
             return response;
         }else{

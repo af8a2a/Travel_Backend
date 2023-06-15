@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class Response {
      private String message;
-     private List<User> data;
+     private LoginResponse data;
 }

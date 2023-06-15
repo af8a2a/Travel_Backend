@@ -6,20 +6,20 @@ import com.example.backend.dto.Response;
 import com.example.backend.entity.Attractions;
 import com.example.backend.service.AttractionsService;
 import com.example.backend.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Controller
 @CrossOrigin
 @RequestMapping("/attractions")
 public class AttractionsController {
     @Resource
     private AttractionsService attractionsService;
-
     @PostMapping("/details")
     @ResponseBody
     public AttractionsResponse Details(@RequestBody AttractionsDTO attractionsDTO){

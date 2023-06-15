@@ -46,7 +46,7 @@ public class HotelServiceImpl extends ServiceImpl<HotelMapper, Hotel> implements
     public HotelResponse Search(HotelDTO hotelDTO) {
         HotelResponse response=new HotelResponse();
         List<Hotel> hotelList=hotelMapper.selectList(new QueryWrapper<Hotel>()
-                .lambda().like(Hotel::getName,hotelDTO.getId()));
+                .lambda().like(Hotel::getName,hotelDTO.getName()));
         response.setData(hotelList);
         response.setMessage("搜索成功");
         return response;
