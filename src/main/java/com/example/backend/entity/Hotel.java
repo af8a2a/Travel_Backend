@@ -10,9 +10,9 @@ import lombok.Data;
 public class Hotel {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String link;
     private String image;
     private String name;
-    private String assess;
+    private String address;
     private String score;
+    private String price;
 }

@@ -12,13 +12,8 @@ public class Attractions {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String title;
+    private String hot;
     private String image;
-    private String level;
-    private String area;
-    private String product;
-    private String address;
-    private String information;
-    private String price;
-    private String amount;
+    private String score;
 
 }

@@ -88,18 +88,7 @@ public class AttractionsServiceImpl extends ServiceImpl<AttractionsMapper, Attra
     public AttractionsResponse Update(AttractionsDTO attractionsDTO) {
         AttractionsResponse response = new AttractionsResponse();
         Attractions attractions=new Attractions();
-        attractions.setAddress(attractionsDTO.getAddress());
-        attractions.setAmount(attractionsDTO.getAmount());
-        attractions.setArea(attractionsDTO.getArea());
-        attractions.setImage(attractionsDTO.getImage());
-        attractions.setTitle(attractionsDTO.getTitle());
-        attractions.setInformation(attractionsDTO.getInformation());
-        attractions.setLevel(attractionsDTO.getLevel());
-        attractions.setPrice(attractionsDTO.getPrice());
-        attractions.setProduct(attractionsDTO.getProduct());
-        UpdateWrapper<Attractions> updateWrapper=new UpdateWrapper<>();
-        updateWrapper.lambda().eq(Attractions::getTitle,attractionsDTO.getTitle())
-                        .setEntity(attractions);
+        BeanUtils.copyProperties(attractionsDTO,attractions);
         response.setMessage("景点修改成功");
         return response;
 

@@ -9,4 +9,12 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/backend?useSSL=false&serverTimezone=UTC
     username: root
     password: 12345qqaa
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB  # 设置文件上传大小限制
+      max-request-size: 10MB # 设置请求体大小限制
+      file-size-threshold: 1MB # 设置文件大小阈值
