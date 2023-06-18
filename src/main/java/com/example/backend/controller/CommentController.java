@@ -6,6 +6,7 @@ import com.example.backend.dto.FoodDTO;
 import com.example.backend.dto.FoodResponse;
 import com.example.backend.service.CommentService;
 import jakarta.annotation.Resource;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,10 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
-    @PostMapping("/get")
+    @GetMapping("/{id}/{type}")
     @ResponseBody
-    public CommentResponse Get(@RequestBody CommentDTO commentDTO){
-        return commentService.GetComment(commentDTO);
+    public CommentResponse Get(@PathVariable("id")Integer id,@PathVariable("type")String type){
+        return commentService.GetComment(id,type);
     }
     @PostMapping("/add")
     @ResponseBody

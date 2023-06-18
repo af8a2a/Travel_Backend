@@ -31,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Response Update(UserDTO userDTO) {
         Response response=new Response();
         UpdateWrapper<User> updateWrapper=new UpdateWrapper<>();
-        if(!userDTO.getAvatar().isEmpty()){
+        if(!userDTO.getDialogImageUrl().isEmpty()){
             updateWrapper.lambda().eq(User::getUsername,userDTO.getUsername())
                     .set(User::getPassword,userDTO.getPassword())
                     .set(User::getNickname,userDTO.getNickname());
@@ -40,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             updateWrapper.lambda().eq(User::getUsername,userDTO.getUsername())
                     .set(User::getPassword,userDTO.getPassword())
                     .set(User::getNickname,userDTO.getNickname())
-                    .set(User::getAvatar,userDTO.getAvatar());
+                    .set(User::getAvatar,userDTO.getDialogImageUrl());
         }
         int rows = userMapper.update(null, updateWrapper);
         if(rows>0){

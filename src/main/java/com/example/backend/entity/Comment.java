@@ -1,6 +1,7 @@
 package com.example.backend.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -12,9 +13,10 @@ import java.sql.Date;
 public class Comment {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Date time;
-    private Integer userid;
-    private Integer entityid;
+    @TableField(value ="user_id")
+    private Integer userId;
+    @TableField(value ="entity_id")
+    private Integer entityId;
     private String type;
     private String content;
 }
