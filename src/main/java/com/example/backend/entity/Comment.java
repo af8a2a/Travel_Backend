@@ -13,10 +13,8 @@ import java.sql.Date;
 public class Comment {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField(value ="user_id")
-    private Integer userId;
-    @TableField(value ="entity_id")
-    private Integer entityId;
+    private String uid;
+    private Integer pid;
     private String type;
     private String content;
 }

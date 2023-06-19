@@ -10,6 +10,7 @@ import com.example.backend.entity.User;
 import com.example.backend.mapper.CommentMapper;
 import com.example.backend.service.CommentService;
 import jakarta.annotation.Resource;
+import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +35,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
-    public CommentResponse GetComment(Integer id,String type) {
-        CommentResponse response=new CommentResponse();
+    public List<Comment> GetComment(Integer id,String type) {
+        List<Comment> commentList=new ArrayList<>();
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Comment::getType,type)
-                .eq(Comment::getEntityId,id);
-        response.setData(commentMapper.selectList(queryWrapper));
-        response.setMessage("获取评论成功");
-        return response;
+                .eq(Comment::getPid,id);
+        commentList=commentMapper.selectList(queryWrapper);
+        return commentList;
     }
 }

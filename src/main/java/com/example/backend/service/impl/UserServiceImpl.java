@@ -81,8 +81,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.lambda().eq(User::getUsername, loginDTO.getUsername());
 
         List<User> userList=userMapper.selectList(queryWrapper);
-        System.out.println(loginDTO.getUsername());
-        System.out.println(loginDTO.getPassword());
 
 
         if(userList.isEmpty()){

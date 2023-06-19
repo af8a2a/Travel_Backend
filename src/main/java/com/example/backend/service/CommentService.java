@@ -5,7 +5,9 @@ import com.example.backend.dto.CommentDTO;
 import com.example.backend.dto.CommentResponse;
 import com.example.backend.entity.Comment;
 
+import java.util.List;
+
 public interface CommentService extends IService<Comment> {
     CommentResponse AddComment(CommentDTO commentDTO);
-    CommentResponse GetComment(Integer id,String type);
+    List<Comment> GetComment(Integer id, String type);
 }
