@@ -9,6 +9,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/backend?useSSL=false&serverTimezone=UTC
     username: root
     password: 12345qqaa
+    resources:
+      static-locations=classpath:/static/:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

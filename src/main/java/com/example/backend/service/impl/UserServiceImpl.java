@@ -44,10 +44,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         int rows = userMapper.update(null, updateWrapper);
         if(rows>0){
-            response.setMessage("success");
+            response.setMessage("修改成功");
         }
         else {
-            response.setMessage("fail");
+            response.setMessage("修改失败");
         }
 
         return response;
@@ -59,7 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setPassword(loginDTO.getPassword());
         user.setUsername(loginDTO.getUsername());
         user.setNickname(loginDTO.getNickname());
-        user.setType("1");
+        user.setType("0");
         user.setAvatar("https://s3.bmp.ovh/imgs/2023/06/12/23987ff34b67b1e5.png");
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(User::getUsername, loginDTO.getUsername());
@@ -83,12 +83,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         List<User> userList=userMapper.selectList(queryWrapper);
         System.out.println(loginDTO.getUsername());
         System.out.println(loginDTO.getPassword());
-        User user=userList.get(0);
+
 
         if(userList.isEmpty()){
             response.setMessage("登录失败,账号或密码错误");
             return response;
         }
+        User user=userList.get(0);
         if(user.getUsername().equals(loginDTO.getUsername())&&user.getPassword().equals(loginDTO.getPassword())){
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setUsername(user.getUsername());

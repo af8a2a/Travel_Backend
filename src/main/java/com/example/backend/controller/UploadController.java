@@ -30,7 +30,7 @@ public class UploadController {
         String fileName = file.getOriginalFilename();
 
         // 拼接文件路径
-        String filePath = "static" + fileName;
+        String filePath = "D:\\backend\\src\\main\\resources\\static" + fileName;
 
         try {
             // 保存文件到本地
@@ -50,5 +50,11 @@ public class UploadController {
         response.setStatus(status);
         response.setData(url);
         return response;
+    }
+
+    @ResponseBody
+    @GetMapping("/download/:{filename}")
+    public String Download(@PathVariable("filename")String filename){
+        return "http://127.0.0.1:3020/"+filename;
     }
 }
