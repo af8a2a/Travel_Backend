@@ -33,7 +33,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UpdateWrapper<User> updateWrapper=new UpdateWrapper<>();
         updateWrapper.lambda().eq(User::getUsername,userDTO.getUsername())
                     .set(User::getPassword,userDTO.getPassword())
-                    .set(User::getNickname,userDTO.getNickname());
+                    .set(User::getNickname,userDTO.getNickname())
+                    .set(User::getAvatar,userDTO.getDialogImageUrl());
 
         int rows = userMapper.update(null, updateWrapper);
         if(rows>0){
@@ -84,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(user.getUsername().equals(loginDTO.getUsername())&&user.getPassword().equals(loginDTO.getPassword())){
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setUsername(user.getUsername());
-            //loginResponse.setAvatar(user.getAvatar());
+            loginResponse.setAvatar(user.getAvatar());
             loginResponse.setType(user.getType());
             loginResponse.setNickname(user.getNickname());
             response.setData(loginResponse);
