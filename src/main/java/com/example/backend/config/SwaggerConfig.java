@@ -16,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableOpenApi
+@Deprecated
 public class SwaggerConfig implements WebMvcConfigurer {
     @Bean
     public Docket api() {
