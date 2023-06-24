@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class CommentDTO {
     private String content;
-    private Integer username;
+    private String username;
     private String type;
-    private String uid;
+    private Integer pid;
 
 }
