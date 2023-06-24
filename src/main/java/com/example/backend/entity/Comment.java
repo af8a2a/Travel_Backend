@@ -13,7 +13,7 @@ import java.sql.Date;
 public class Comment {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String uid;
+    private String username;
     private Integer pid;
     private String type;
     private String content;

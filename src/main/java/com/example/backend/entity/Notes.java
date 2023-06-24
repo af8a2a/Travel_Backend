@@ -13,9 +13,8 @@ public class Notes {
     private Integer id;
     private String title;
     private String image;
-    private String user;
     private String time;
-    private String quantity;
+    private String score;
     private String address;
     private String content;
 }
