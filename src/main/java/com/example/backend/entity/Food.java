@@ -12,6 +12,6 @@ public class Food {
     private Integer id;
     private String name;
     private String image;
-    private String recommend;
+    private Integer recommend;
     private String information;
 }
